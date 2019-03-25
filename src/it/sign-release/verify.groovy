@@ -17,28 +17,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+ 
+import groovy.io.FileType
 
-import java.io.*;
+def buildLog = new File(basedir,'build.log')
+assert buildLog.text.contains('BUILD SUCCESS')
 
-File artifactDir = new File( localRepositoryPath, "org/apache/maven/its/gpg/sr/test/1.0" );
+def artifactDir = new File( localRepositoryPath, "org/apache/maven/its/gpg/sr/test/1.0" )
 
-String[] expectedFiles = {
+def expectedFiles = [
     "test-1.0.pom",
     "test-1.0.pom.asc",
     "test-1.0.jar",
     "test-1.0.jar.asc",
     "test-1.0-sources.jar",
     "test-1.0-sources.jar.asc",
-};
+] as Set
 
-for ( String expectedFile : expectedFiles )
-{
-    File file = new File( artifactDir, expectedFile );
+def actualFiles = [] as Set 
+artifactDir.eachFile(FileType.FILES) { actualFiles << it.name }
 
-    System.out.println( "Checking for existence of " + file );
-
-    if ( !file.isFile() )
-    {
-        throw new Exception( "Missing file " + file );
-    }
-}
+assert expectedFiles == (actualFiles - '_remote.repositories')
