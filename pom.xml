@@ -129,24 +129,25 @@ under the License.
     <profile>
       <id>run-its</id>
       <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-invoker-plugin</artifactId>
-              <configuration>
-                <settingsFile>src/it/settings.xml</settingsFile>
-                <goals>
-                  <goal>clean</goal>
-                  <goal>install</goal>
-                </goals>
-                <properties>
-                  <gpg.homedir>${project.build.testOutputDirectory}/gnupg</gpg.homedir>
-                </properties>
-              </configuration>
-            </plugin>
-          </plugins>
-        </pluginManagement>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-invoker-plugin</artifactId>
+            <configuration>
+              <settingsFile>src/it/settings.xml</settingsFile>
+              <pomIncludes>
+                <pomInclude>*</pomInclude>
+              </pomIncludes>
+              <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+              </goals>
+              <properties>
+                <gpg.homedir>${project.build.testOutputDirectory}/gnupg</gpg.homedir>
+              </properties>
+            </configuration>
+          </plugin>
+        </plugins>
       </build>
     </profile>
   </profiles>
