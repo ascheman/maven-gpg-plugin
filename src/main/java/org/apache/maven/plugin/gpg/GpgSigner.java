@@ -157,6 +157,8 @@ public class GpgSigner
         // ----------------------------------------------------------------------------
         // Execute the command line
         // ----------------------------------------------------------------------------
+        
+        getLog().debug( "Executing: " + cmd.getLiteralExecutable() );
 
         try
         {
